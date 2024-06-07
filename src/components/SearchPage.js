@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios';
 import './SearchPage.css'
-import DatePicker from "react-datepicker";
 
 const SearchPage = () => {
   const [options, setOptions] = useState([]);
@@ -87,56 +87,6 @@ const SearchPage = () => {
   };
 
   return (
-    // <div className='container'>
-    //   <div className='search-container'>
-    //     <div className='line'>
-    //       <Select className='select'
-    //         value={selectedOption1}
-    //         onChange={handleChange1}
-    //         options={options}
-    //         placeholder="Откуда"
-    //         isSearchable
-    //       />
-    //       <button onClick={swapOptions}>&#8646;</button>
-    //       <Select className='select'
-    //         value={selectedOption2}
-    //         onChange={handleChange2}
-    //         options={options}
-    //         placeholder="Куда"
-    //         isSearchable
-    //       />
-    //       <button onClick={find}>Найти</button>
-    //     </div>
-    //   </div>
-
-    //   <div className='search-container'>
-    //       <table>
-    //         <thead>
-    //           <tr>
-    //             <th>Откуда</th>
-    //             <th>Куда</th>
-    //             <th>Номер поезда</th>
-    //             <th>Тип</th>
-    //             <th>Время отправления</th>
-    //             <th>Время прибытия</th>
-    //           </tr>
-    //         </thead>
-    //         <tbody>
-    //           {routeDetails.map((routeDetail, index) => (
-    //             <tr key={index}>
-    //               <td>{routeDetail.startStationName}</td>
-    //               <td>{routeDetail.endStationName}</td>
-    //               <td>{routeDetail.trainNumber}</td>
-    //               <td>{routeDetail.type}</td>
-    //               <td>{routeDetail.departureTime}</td>
-    //               <td>{routeDetail.arrivalTime}</td>
-    //             </tr>
-    //           ))}
-    //         </tbody>
-    //       </table>
-    //     </div>
-    // </div>
-
     <div className='container'>
       <div className='search-container'>
         <div className='line'>
@@ -176,7 +126,12 @@ const SearchPage = () => {
               <tr key={index}>
                 <td>{routeDetail.startStationName}</td>
                 <td>{routeDetail.endStationName}</td>
-                <td>{routeDetail.trainNumber}</td>
+                {/* <td>{routeDetail.trainNumber}</td> */}
+                <td>
+                <Link to={`/schedule/${routeDetail.trainNumber}`}>
+                  {routeDetail.trainNumber}
+                </Link>
+                </td>
                 <td>{routeDetail.type}</td>
                 <td>{routeDetail.departureTime}</td>
                 <td>{routeDetail.arrivalTime}</td>

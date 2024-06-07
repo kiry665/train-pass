@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import AuthPage from './components/AuthPage';
 import Navigation from './components/Navigation';
 import SearchPage from './components/SearchPage';
+import SchedulePage from './components/SchedulePage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
@@ -23,6 +24,7 @@ function App() {
         <Routes>
           <Route path="/auth" element={isLoggedIn ? <Navigate to="/" /> : <AuthPage onLogin={handleLogin} />} />
           <Route path='/' element={<SearchPage/>}/>
+          <Route path='/schedule/:trainNumber' element={<SchedulePage/>}/>
         </Routes>
       </div>
     </Router>
