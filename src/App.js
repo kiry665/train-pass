@@ -7,7 +7,7 @@ import SchedulePage from './components/SchedulePage';
 import Cookies from 'js-cookie';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get('token'));
+  const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get("token"));
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -19,14 +19,37 @@ function App() {
     setIsLoggedIn(false);
   };
 
+  const ProtectedRoute = ({ isLoggedIn, children }) => {
+    return isLoggedIn ? children : <Navigate to="/auth" />;
+  };
+  
+  const AuthRoute = ({ isLoggedIn, children }) => {
+    return !isLoggedIn ? children : <Navigate to="/" />;
+  };
+
   return (
     <Router>
       <div>
         <Navigation isLoggedIn={isLoggedIn} onLogout={handleLogout} />
         <Routes>
-          <Route path="/auth" element={isLoggedIn ? <Navigate to="/" /> : <AuthPage onLogin={handleLogin} />} />
-          <Route path='/' element={<SearchPage/>}/>
-          <Route path='/schedule/:trainNumber' element={<SchedulePage/>}/>
+          <Route path="/auth" element={
+              <AuthRoute isLoggedIn={isLoggedIn}>
+                <AuthPage onLogin={handleLogin} />
+              </AuthRoute>
+            }
+          />
+          <Route path="/" element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <SearchPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/schedule/:trainNumber" element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <SchedulePage />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
     </Router>

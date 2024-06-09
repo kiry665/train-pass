@@ -88,6 +88,16 @@
     font-size: 12px;
   }
 
+  .auth-form .remember-me {
+    display: flex;
+    align-items: center;
+  }
+  
+  .auth-form .remember-me input {
+    width: auto;
+    margin-right: 10px;
+  }
+
 /* nav {
   margin-bottom: 10px;
   padding: 10px;

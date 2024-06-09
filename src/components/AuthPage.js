@@ -23,9 +23,11 @@ const AuthPage = ({onLogin}) => {
 
   const onSubmitLogin = async (data) => {
     try {
+      console.log(!!Cookies.get("token"))
       const response = await axios.post('http://localhost:8080/api/auth/login', {
         username: data.username,
-        password: data.password
+        password: data.password,
+        remember: data.rememberMe
       }, {
         headers: {
           'Content-Type': 'application/json'
@@ -53,7 +55,7 @@ const AuthPage = ({onLogin}) => {
     try {
       const response = await axios.post('http://localhost:8080/api/auth/register', {
         username: data.username,
-        password: data.password
+        password: data.password,
       }, {
         headers: {
           'Content-Type': 'application/json'
@@ -105,6 +107,14 @@ const AuthPage = ({onLogin}) => {
               })}
             />
             {errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
+          </div>
+        )}
+        {isLogin && (
+          <div className="remember-me">
+            <label htmlFor="rememberMe">
+              <input id="rememberMe" type="checkbox" {...register('rememberMe')} />
+              Remember Me
+            </label>
           </div>
         )}
         <button type="submit">{isLogin ? 'Login' : 'Register'}</button>
