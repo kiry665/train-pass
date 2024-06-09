@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 import './Navigation.css'
 
 const Navigation = ({ isLoggedIn, onLogout }) => {
 
     const navigate = useNavigate();
-    const username = localStorage.getItem('username');
+    const username = Cookies.get('username');
     const handleLogout = () => {
-        localStorage.removeItem('token');
         onLogout();
         navigate("/")
     };

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import './AuthPage.css';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import './AuthPage.css';
+import Cookies from 'js-cookie';
 
 const AuthPage = ({onLogin}) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -29,12 +30,15 @@ const AuthPage = ({onLogin}) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        responseType: 'text'
+        responseType: 'json'
       });
 
-      const token = response.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('username', data.username);
+      const token = response.data.token;
+      const expires = new Date(response.data.expires)
+
+      Cookies.set('token', token, { expires: expires });
+      Cookies.set('username', data.username, { expires: expires });
+
       clearMessages();
       setSuccessMessage('You are login')
       navigate("/")

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import "./SchedulePage.css"
 
 const SchedulePage = () => {
@@ -9,7 +10,7 @@ const SchedulePage = () => {
     const [data, setData] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
-          const token = localStorage.getItem('token');
+          const token = Cookies.get('token');
           if (!token) {
             console.error('No token found');
             return;

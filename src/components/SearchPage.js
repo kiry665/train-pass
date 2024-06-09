@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import './SearchPage.css'
 
 const SearchPage = () => {
@@ -10,10 +11,9 @@ const SearchPage = () => {
   const [selectedOption2, setSelectedOption2] = useState(null);
   const [routeDetails, setRouteDetails] = useState([]);
 
-
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem('token');
+      const token = Cookies.get('token');
       if (!token) {
         console.error('No token found');
         return;
@@ -63,7 +63,7 @@ const SearchPage = () => {
     }
 
     try {
-      const token = localStorage.getItem('token');
+      const token = Cookies.get('token');
       if (!token) {
         console.error('No token found');
         return;

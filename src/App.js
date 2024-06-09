@@ -4,16 +4,18 @@ import AuthPage from './components/AuthPage';
 import Navigation from './components/Navigation';
 import SearchPage from './components/SearchPage';
 import SchedulePage from './components/SchedulePage';
+import Cookies from 'js-cookie';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+  const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get('token'));
 
   const handleLogin = () => {
     setIsLoggedIn(true);
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    Cookies.remove('token');
+    Cookies.remove('username')
     setIsLoggedIn(false);
   };
 
