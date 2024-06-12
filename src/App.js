@@ -5,6 +5,8 @@ import Navigation from './components/Navigation';
 import SearchPage from './components/SearchPage';
 import SchedulePage from './components/SchedulePage';
 import Cookies from 'js-cookie';
+import NewTrain from './components/NewTrain';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get("token"));
@@ -49,6 +51,12 @@ function App() {
                 <SchedulePage />
               </ProtectedRoute>
             }
+          />
+          <Route path='/test' element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <NewTrain/>
+            </ProtectedRoute>
+          }
           />
         </Routes>
       </div>
