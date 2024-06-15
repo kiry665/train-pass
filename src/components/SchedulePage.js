@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import "./SchedulePage.css"
+import config from '../config.js';
 
 const SchedulePage = () => {
     const { trainNumber } = useParams();
@@ -17,7 +18,7 @@ const SchedulePage = () => {
           }
     
           try {
-            const response = await axios.get('http://localhost:8080/api/v1/trains/number', {
+            const response = await axios.get(`${config.apiUrl}/v1/trains/number`, {
               headers: {
                 Authorization: `Bearer ${token}`
               },

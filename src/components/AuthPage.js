@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import './AuthPage.css';
 import Cookies from 'js-cookie';
+import config from '../config.js';
 
 const AuthPage = ({onLogin}) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -23,8 +24,7 @@ const AuthPage = ({onLogin}) => {
 
   const onSubmitLogin = async (data) => {
     try {
-      console.log(!!Cookies.get("token"))
-      const response = await axios.post('http://localhost:8080/api/auth/login', {
+      const response = await axios.post(`${config.apiUrl}/auth/login`, {
         username: data.username,
         password: data.password,
         remember: data.rememberMe
@@ -53,7 +53,7 @@ const AuthPage = ({onLogin}) => {
 
   const onSubmitRegister = async (data) => {
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/register', {
+      const response = await axios.post(`${config.apiUrl}/auth/register`, {
         username: data.username,
         password: data.password,
       }, {

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import './SearchPage.css'
+import config from '../config.js';
 
 const SearchPage = () => {
   const [options, setOptions] = useState([]);
@@ -20,7 +21,7 @@ const SearchPage = () => {
       }
 
       try {
-        const response = await axios.get('http://localhost:8080/api/v1/stations/all', {
+        const response = await axios.get(`${config.apiUrl}/v1/stations/all`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -69,7 +70,7 @@ const SearchPage = () => {
         return;
       }
   
-      const response = await axios.post('http://localhost:8080/api/v1/route/details', {
+      const response = await axios.post(`${config.apiUrl}/v1/route/details`, {
         departureStationId: selectedOption1.value,
         arrivalStationId: selectedOption2.value
       }, {

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import StationsList from './Modal/StationsList';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import config from '../config.js';
 
 const NewTrain = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -21,7 +22,7 @@ const NewTrain = () => {
         }
   
         try {
-          const response = await axios.get('http://localhost:8080/api/v1/stations/all', {
+          const response = await axios.get(`${config.apiUrl}/v1/stations/all`, {
             headers: {
               Authorization: `Bearer ${token}`
             }
